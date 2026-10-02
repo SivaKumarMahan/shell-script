@@ -1,0 +1,17 @@
+# Example crontab for backup.sh. Install with: crontab -e   (or put a copy in /etc/cron.d/,
+# which needs a user field after the time fields).
+#
+# - cron has a tiny PATH, so set it.
+# - MAILTO gets any output; the script only writes to stderr on problems or with -l.
+# - backup.sh uses flock, so a slow run is never overlapped by the next one.
+# - A weekly verify of the newest backup catches bit rot on the backup disk.
+
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+MAILTO=ops-team@example.com
+
+# Every day at 02:30: back up /srv/app-data, keep 14 backups, log to a file.
+30 2 * * * /opt/backup/backup.sh -s /srv/app-data -d /var/backups/app-data -k 14 -e './tmp/*' -l /var/log/backup-app-data.log 2>/dev/null || echo "backup of /srv/app-data FAILED (exit $?), see /var/log/backup-app-data.log"
+
+# Every Sunday at 04:00: verify the newest archive (checksum + full test extract).
+0 4 * * 0 /opt/backup/restore.sh -V -a "$(ls -1 /var/backups/app-data/app-data-*.tar.gz | tail -n 1)" 2>/dev/null || echo "weekly verify of app-data backup FAILED (exit $?)"
