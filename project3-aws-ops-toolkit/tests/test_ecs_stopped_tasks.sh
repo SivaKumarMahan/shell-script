@@ -20,7 +20,7 @@ test_ecs_since_window_includes_older_tasks() {
   run ecs --cluster prod --since 4h --json
   assert_status 0
   assert_eq "$(jq length <<<"${OUT}")" "5"
-  # newest first, timestamps normalised to UTC (input had +02:00 and epoch numbers)
+  # newest first, timestamps normalized to UTC (input had +02:00 and epoch numbers)
   assert_eq "$(jq -r '.[0].stoppedAt' <<<"${OUT}")" "2026-09-30T11:55:00Z"
   assert_eq "$(jq -r '.[] | select(.task | startswith("b2c3")) | .stoppedAt' <<<"${OUT}")" "2026-09-30T11:40:00Z"
 }

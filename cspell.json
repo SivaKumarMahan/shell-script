@@ -1,0 +1,17 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": [".git", "**/fixtures/**"],
+  "words": [
+    "findutils",
+    "getopts",
+    "localstack",
+    "missingok",
+    "myapp",
+    "notifempty",
+    "pipefail",
+    "procps",
+    "shellcheck",
+    "SIGPIPE"
+  ]
+}

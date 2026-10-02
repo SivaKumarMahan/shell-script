@@ -1,0 +1,55 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck all scripts
+        run: |
+          shellcheck --version
+          git ls-files '*.sh' 'project3-aws-ops-toolkit/tests/mocks/aws' | xargs shellcheck -x
+
+  tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: project1 and project2 smoke test
+        run: |
+          ./project1/system_monitor.sh -l "$RUNNER_TEMP/monitor.log" -s
+          ./project2/system_info.sh --no-color
+      - name: project3 offline tests (mock AWS CLI)
+        run: ./project3-aws-ops-toolkit/tests/run-tests.sh
+      - name: project4 backup tests
+        run: ./project4-backup-with-verification/tests/run-tests.sh
+
+  localstack-ssm:
+    runs-on: ubuntu-24.04
+    services:
+      localstack:
+        image: localstack/localstack:4.4.0
+        ports:
+          - 4566:4566
+        env:
+          SERVICES: ssm,sts
+    steps:
+      - uses: actions/checkout@v4
+      - name: wait for LocalStack
+        run: |
+          for _ in $(seq 1 30); do
+            curl -sf http://localhost:4566/_localstack/health && exit 0
+            sleep 2
+          done
+          exit 1
+      - name: ssm-params.sh end-to-end
+        env:
+          AWS_ENDPOINT_URL: http://localhost:4566
+        run: ./project3-aws-ops-toolkit/tests/integration/ssm-localstack.sh

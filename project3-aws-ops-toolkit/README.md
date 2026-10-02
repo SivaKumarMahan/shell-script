@@ -290,5 +290,5 @@ Not tested:
   `--endpoint-url` and `--region`. Tests swap the binary (`AWS_BIN`) for a mock that serves
   fixtures and logs calls, and pin time with `OPS_NOW`. LocalStack covers what it supports (SSM).
 - **Operational details.** API limits handled (100 tasks per `describe-tasks`, 100 images per
-  `batch-delete-image`), CLI pagination, standard retry mode, timestamps normalised to UTC
+  `batch-delete-image`), CLI pagination, standard retry mode, timestamps normalized to UTC
   (jq 1.6 cannot parse offsets, so `lib.sh` has an `epoch` helper), and clear exit codes for CI.

@@ -25,7 +25,7 @@ for file in "${TESTS_DIR}"/test_*.sh; do
     log=$(mktemp)
     (
       set -euo pipefail
-      # shellcheck source=tests/helpers.sh
+      # shellcheck source=helpers.sh
       source "${TESTS_DIR}/helpers.sh"
       # shellcheck disable=SC1090
       source "${file}"
