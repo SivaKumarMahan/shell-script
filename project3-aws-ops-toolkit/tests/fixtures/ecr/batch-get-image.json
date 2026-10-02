@@ -1,0 +1,15 @@
+{
+  "images": [
+    {
+      "registryId": "123456789012",
+      "repositoryName": "app",
+      "imageId": {
+        "imageDigest": "sha256:605630ff1f435644715bc7a8bce112f5cca5f9863b30d9da11dfddbe9e7c9178",
+        "imageTag": "multi-1.0.0"
+      },
+      "imageManifest": "{\"schemaVersion\": 2, \"mediaType\": \"application/vnd.oci.image.index.v1+json\", \"manifests\": [{\"mediaType\": \"application/vnd.oci.image.manifest.v1+json\", \"digest\": \"sha256:5615e95f8edaa9b7a3205b5c2aff50705de3ad363ce4071b77e6e0da5554914d\", \"size\": 1000, \"platform\": {\"architecture\": \"amd64\", \"os\": \"linux\"}}, {\"mediaType\": \"application/vnd.oci.image.manifest.v1+json\", \"digest\": \"sha256:d485f78b91daa2fc2887435520081a8b24637e65fefa99299b514e0f1e78a084\", \"size\": 1000, \"platform\": {\"architecture\": \"arm64\", \"os\": \"linux\"}}]}",
+      "imageManifestMediaType": "application/vnd.oci.image.index.v1+json"
+    }
+  ],
+  "failures": []
+}

@@ -1,0 +1,19 @@
+# Logs written by the scripts when run from the repo
+*.log
+
+# SSM exports contain decrypted secrets - never commit them
+*.ssm.json
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Backups made while testing project4
+backups/
+restore-test/
+
+# Editor / OS noise
+.vscode/
+.idea/
+.DS_Store

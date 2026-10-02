@@ -1,0 +1,7 @@
+{
+  "serviceArns": [
+    "arn:aws:ecs:eu-west-1:123456789012:service/prod/api",
+    "arn:aws:ecs:eu-west-1:123456789012:service/prod/worker",
+    "arn:aws:ecs:eu-west-1:123456789012:service/prod/web"
+  ]
+}
