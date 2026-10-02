@@ -80,7 +80,7 @@ Uptime: up 5 days, 11 hours, 11 minutes
 CPU Usage: 31.2%
 Memory Usage: 13.6Gi / 23.2Gi
 Disk Usage: 64% (280G / 467G)
-IP Address: 192.168.1.11
+IP Address: <private-ip>
 Logged-in Users: 2
 ==============================
 Last Checked: Friday 02 October 2026 10:45:56 PM IST
