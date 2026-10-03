@@ -1,0 +1,98 @@
+[
+  {
+    "attributes": {
+      "created": "2026-03-01T10:00:00+00:00",
+      "enabled": true,
+      "expires": "2026-12-01T00:00:00+00:00",
+      "notBefore": null,
+      "recoverableDays": 90,
+      "recoveryLevel": "Recoverable+Purgeable",
+      "updated": "2026-09-01T08:30:00.1234567+00:00"
+    },
+    "contentType": null,
+    "id": "https://kv-app-prod.vault.azure.net/secrets/api-key",
+    "managed": null,
+    "name": "api-key",
+    "tags": {}
+  },
+  {
+    "attributes": {
+      "created": "2026-03-01T10:00:00+00:00",
+      "enabled": true,
+      "expires": "2026-11-15T00:00:00+00:00",
+      "notBefore": null,
+      "recoverableDays": 90,
+      "recoveryLevel": "Recoverable+Purgeable",
+      "updated": "2026-09-01T08:30:00.1234567+00:00"
+    },
+    "contentType": null,
+    "id": "https://kv-app-prod.vault.azure.net/secrets/db-password",
+    "managed": null,
+    "name": "db-password",
+    "tags": {}
+  },
+  {
+    "attributes": {
+      "created": "2026-03-01T10:00:00+00:00",
+      "enabled": true,
+      "expires": "2027-01-01T00:00:00+00:00",
+      "notBefore": null,
+      "recoverableDays": 90,
+      "recoveryLevel": "Recoverable+Purgeable",
+      "updated": "2026-09-01T08:30:00.1234567+00:00"
+    },
+    "contentType": null,
+    "id": "https://kv-app-prod.vault.azure.net/secrets/old-token",
+    "managed": null,
+    "name": "old-token",
+    "tags": {}
+  },
+  {
+    "attributes": {
+      "created": "2026-03-01T10:00:00+00:00",
+      "enabled": true,
+      "expires": "2027-01-01T00:00:00+00:00",
+      "notBefore": null,
+      "recoverableDays": 90,
+      "recoveryLevel": "Recoverable+Purgeable",
+      "updated": "2026-09-01T08:30:00.1234567+00:00"
+    },
+    "contentType": null,
+    "id": "https://kv-app-prod.vault.azure.net/secrets/prod-only-key",
+    "managed": null,
+    "name": "prod-only-key",
+    "tags": {}
+  },
+  {
+    "attributes": {
+      "created": "2026-03-01T10:00:00+00:00",
+      "enabled": true,
+      "expires": "2027-06-01T00:00:00+00:00",
+      "notBefore": null,
+      "recoverableDays": 90,
+      "recoveryLevel": "Recoverable+Purgeable",
+      "updated": "2026-09-01T08:30:00.1234567+00:00"
+    },
+    "contentType": null,
+    "id": "https://kv-app-prod.vault.azure.net/secrets/redis-password",
+    "managed": null,
+    "name": "redis-password",
+    "tags": {}
+  },
+  {
+    "attributes": {
+      "created": "2026-03-01T10:00:00+00:00",
+      "enabled": true,
+      "expires": "2027-06-01T00:00:00+00:00",
+      "notBefore": null,
+      "recoverableDays": 90,
+      "recoveryLevel": "Recoverable+Purgeable",
+      "updated": "2026-09-01T08:30:00.1234567+00:00"
+    },
+    "contentType": null,
+    "id": "https://kv-app-prod.vault.azure.net/secrets/storage-conn",
+    "managed": null,
+    "name": "storage-conn",
+    "tags": {}
+  }
+]

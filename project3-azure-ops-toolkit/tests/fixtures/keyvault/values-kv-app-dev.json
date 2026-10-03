@@ -1,0 +1,8 @@
+{
+  "api-key": "FAKE-api-key-shared",
+  "db-password": "FAKE-dev-db-pass",
+  "feature-flag-x": "FAKE-flag-on",
+  "old-token": "FAKE-old-token-dev",
+  "redis-password": "FAKE-redis-shared",
+  "storage-conn": "FAKE-storage-conn-shared"
+}
