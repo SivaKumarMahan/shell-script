@@ -170,7 +170,7 @@ warn_blocking_pdbs() {
   local pdbs p
   pdbs=$(kube get poddisruptionbudgets --all-namespaces -o json) || { log_warn "could not list PodDisruptionBudgets"; return 0; }
   while IFS= read -r p; do
-    [[ -n "${p}" ]] && log_warn "PodDisruptionBudget ${p} allows 0 disruptions now; it can block node drain"
+    if [[ -n "${p}" ]]; then log_warn "PodDisruptionBudget ${p} allows 0 disruptions now; it can block node drain"; fi
   done < <(jq -r '.items[] | select((.status.disruptionsAllowed // 0) == 0) | "\(.metadata.namespace)/\(.metadata.name)"' <<<"${pdbs}")
 }
 
