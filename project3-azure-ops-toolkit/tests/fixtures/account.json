@@ -1,0 +1,9 @@
+{
+  "environmentName": "AzureCloud",
+  "id": "00000000-0000-0000-0000-000000000000",
+  "isDefault": true,
+  "name": "sub-platform-test",
+  "state": "Enabled",
+  "tenantId": "11111111-1111-1111-1111-111111111111",
+  "user": { "name": "ops@example.com", "type": "user" }
+}

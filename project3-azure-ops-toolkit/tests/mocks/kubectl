@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Fake kubectl for offline tests. Reads the AKS state that tests/mocks/az keeps in $MOCK_STATE.
+#
+#   MOCK_KUBE_SERVER       API server URL of the current context (default: the fixture cluster)
+#   MOCK_INITIAL_PENDING   if set, a Pod is Pending before any upgrade starts
+set -euo pipefail
+
+fix="${MOCK_FIXTURES:?MOCK_FIXTURES not set}"
+state="${MOCK_STATE:?MOCK_STATE not set}"
+printf '%s\n' "$*" >>"${state}/kubectl-calls.log"
+
+args=()
+while (($# > 0)); do
+  case "$1" in
+    --context) shift 2 ;;
+    --request-timeout=*) shift ;;
+    *) args+=("$1"); shift ;;
+  esac
+done
+set -- "${args[@]}"
+
+nodes="${state}/nodes.json"; [[ -f "${nodes}" ]] || nodes="${fix}/aks/nodes.json"
+pods="${state}/pods.json"; [[ -f "${pods}" ]] || pods="${fix}/aks/pods-pending.json"
+
+case "$1 $2" in
+  "config view")
+    jq -n --arg s "${MOCK_KUBE_SERVER:-https://aks-prod-dns-4f1e2d3c.hcp.westeurope.azmk8s.io:443}" \
+      '{clusters: [{name: "aks-prod", cluster: {server: $s}}]}' ;;
+  "get nodes")
+    cat "${nodes}" ;;
+  "get pods")
+    if [[ -n "${MOCK_INITIAL_PENDING:-}" ]]; then
+      jq '.items += [{metadata: {namespace: "batch", name: "report-1"}, status: {phase: "Pending", conditions: [
+        {type: "PodScheduled", status: "False", message: "0/5 nodes are available: 1 node(s) had untolerated taint."}]}}]' "${pods}"
+    else
+      cat "${pods}"
+    fi ;;
+  "get poddisruptionbudgets")
+    cat "${fix}/aks/pdbs.json" ;;
+  *)
+    echo "mock kubectl: unsupported call: $*" >&2
+    exit 2 ;;
+esac

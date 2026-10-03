@@ -1,0 +1,178 @@
+#!/usr/bin/env bash
+# Fake Azure CLI for offline tests. It answers from JSON fixtures and records every call.
+#
+#   MOCK_FIXTURES   folder with fixtures (required)
+#   MOCK_STATE      folder for the call log and mutable AKS state (required)
+#
+# AKS behaviour (state is copied from fixtures/aks on first use, then changed by upgrades):
+#   - after 'aks upgrade' / 'aks nodepool upgrade' the next 'show' says Upgrading,
+#     the one after that says Succeeded and the new version is live
+#   MOCK_CP_RESULT=Failed       the control plane upgrade ends in this state
+#   MOCK_FAIL_POOL=NAME         this pool's upgrade ends Failed
+#   MOCK_STUCK_POOL=NAME        this pool stays Upgrading forever
+#   MOCK_NOTREADY_POOL=NAME     after this pool's upgrade one of its nodes is NotReady
+#   MOCK_PENDING_POOL=NAME      after this pool's upgrade a Pod is stuck Pending
+# ACR: MOCK_FAIL_DIGEST=sha256:...  'acr manifest delete' fails for this digest
+#
+# Calls are logged one per line to $MOCK_STATE/calls.log, so tests can check the order
+# of operations and that secret values never appear on the command line.
+# shellcheck disable=SC2016  # $p, $v in single quotes are jq variables (jq_inplace wraps jq)
+set -euo pipefail
+
+fix="${MOCK_FIXTURES:?MOCK_FIXTURES not set}"
+state="${MOCK_STATE:?MOCK_STATE not set}"
+printf '%s\n' "$*" >>"${state}/calls.log"
+
+# Drop global options the wrapper adds; collect the command words.
+args=()
+while (($# > 0)); do
+  case "$1" in
+    --output | -o) shift 2 ;;
+    --only-show-errors) shift ;;
+    *) args+=("$1"); shift ;;
+  esac
+done
+set -- "${args[@]}"
+
+# opt NAME args... -> value after NAME
+opt() {
+  local name="$1"; shift
+  while (($# > 0)); do
+    if [[ "$1" == "${name}" ]]; then printf '%s' "${2-}"; return 0; fi
+    shift
+  done
+  return 1
+}
+
+err() { echo "ERROR: $1" >&2; exit "${2:-1}"; }
+
+# ---------- AKS state ----------
+aks_init() {
+  if [[ ! -f "${state}/cluster.json" ]]; then
+    cp "${fix}/aks/show.json" "${state}/cluster.json"
+    cp "${fix}/aks/nodepool-list.json" "${state}/pools.json"
+    cp "${fix}/aks/nodes.json" "${state}/nodes.json"
+    cp "${fix}/aks/pods-pending.json" "${state}/pods.json"
+  fi
+}
+jq_inplace() { local f="$1"; shift; jq "$@" "${f}" >"${f}.new" && mv -f "${f}.new" "${f}"; }
+
+# advance_pool NAME: move a pool's upgrade one step forward (called on 'nodepool show').
+advance_pool() {
+  local p="$1" pending="${state}/pool-${1}.pending" v
+  [[ -f "${pending}" ]] || return 0
+  v=$(cat "${pending}")
+  if [[ "${MOCK_FAIL_POOL:-}" == "${p}" ]]; then
+    jq_inplace "${state}/pools.json" --arg p "${p}" 'map(if .name == $p then .provisioningState = "Failed" else . end)'
+  elif [[ "${MOCK_STUCK_POOL:-}" == "${p}" ]]; then
+    :
+  elif [[ ! -f "${pending}.polled" ]]; then
+    : >"${pending}.polled"
+  else
+    rm -f -- "${pending}" "${pending}.polled"
+    jq_inplace "${state}/pools.json" --arg p "${p}" --arg v "${v}" \
+      'map(if .name == $p then .provisioningState = "Succeeded" | .currentOrchestratorVersion = $v else . end)'
+    jq_inplace "${state}/nodes.json" --arg p "${p}" --arg v "v${v}" \
+      '.items |= map(if .metadata.labels["kubernetes.azure.com/agentpool"] == $p then .status.nodeInfo.kubeletVersion = $v else . end)'
+    if [[ "${MOCK_NOTREADY_POOL:-}" == "${p}" ]]; then
+      jq_inplace "${state}/nodes.json" --arg p "${p}" '
+        ([.items[] | select(.metadata.labels["kubernetes.azure.com/agentpool"] == $p) | .metadata.name][0]) as $n
+        | .items |= map(if .metadata.name == $n then .status.conditions = [{type: "Ready", status: "False"}] else . end)'
+    fi
+    if [[ "${MOCK_PENDING_POOL:-}" == "${p}" ]]; then
+      jq_inplace "${state}/pods.json" '.items += [{metadata: {namespace: "shop", name: "cart-7d9f-abcde"},
+        status: {phase: "Pending", conditions: [{type: "PodScheduled", status: "False",
+        message: "0/5 nodes are available: 2 Insufficient memory."}]}}]'
+    fi
+  fi
+}
+
+advance_cluster() {
+  local pending="${state}/cp.pending" v
+  [[ -f "${pending}" ]] || return 0
+  v=$(cat "${pending}")
+  if [[ -n "${MOCK_CP_RESULT:-}" ]]; then
+    jq_inplace "${state}/cluster.json" --arg s "${MOCK_CP_RESULT}" '.provisioningState = $s'
+  elif [[ ! -f "${pending}.polled" ]]; then
+    : >"${pending}.polled"
+  else
+    rm -f -- "${pending}" "${pending}.polled"
+    jq_inplace "${state}/cluster.json" --arg v "${v}" '.provisioningState = "Succeeded" | .currentKubernetesVersion = $v'
+  fi
+}
+
+case "${1:-} ${2:-} ${3:-}" in
+  "account show "*)
+    cat "${fix}/account.json" ;;
+
+  # ----- AKS -----
+  "aks show "*)
+    aks_init
+    [[ "$(opt --name "$@")" == "$(jq -r .name "${state}/cluster.json")" ]] || err "(ResourceNotFound) cluster not found" 3
+    advance_cluster
+    cat "${state}/cluster.json" ;;
+  "aks get-upgrades "*)
+    aks_init; cat "${fix}/aks/get-upgrades.json" ;;
+  "aks nodepool list")
+    aks_init; cat "${state}/pools.json" ;;
+  "aks nodepool show")
+    aks_init
+    p=$(opt --name "$@")
+    advance_pool "${p}"
+    jq --arg p "${p}" '.[] | select(.name == $p)' "${state}/pools.json" ;;
+  "aks upgrade "*)
+    aks_init
+    v=$(opt --kubernetes-version "$@")
+    printf '%s' "${v}" >"${state}/cp.pending"
+    jq_inplace "${state}/cluster.json" --arg v "${v}" '.provisioningState = "Upgrading" | .kubernetesVersion = $v' ;;
+  "aks nodepool upgrade")
+    aks_init
+    p=$(opt --name "$@"); v=$(opt --kubernetes-version "$@")
+    printf '%s' "${v}" >"${state}/pool-${p}.pending"
+    jq_inplace "${state}/pools.json" --arg p "${p}" --arg v "${v}" \
+      'map(if .name == $p then .provisioningState = "Upgrading" | .orchestratorVersion = $v else . end)' ;;
+
+  # ----- Key Vault -----
+  "keyvault secret list")
+    f="${fix}/keyvault/list-$(opt --vault-name "$@").json"
+    [[ -f "${f}" ]] || err "(VaultNotFound) The vault was not found." 1
+    cat "${f}" ;;
+  "keyvault secret show")
+    vault=$(opt --vault-name "$@"); name=$(opt --name "$@")
+    if jq -e --arg n "${name}" 'any(.[]; .name == $n and .attributes.enabled == false)' \
+      "${fix}/keyvault/list-${vault}.json" >/dev/null; then
+      err "(Forbidden) Operation get is not allowed on a disabled secret." 1
+    fi
+    jq --arg n "${name}" --arg v "${vault}" 'select(has($n)) | {name: $n, value: .[$n],
+      id: "https://\($v).vault.azure.net/secrets/\($n)/0123456789abcdef"}' "${fix}/keyvault/values-${vault}.json" ;;
+
+  # ----- ACR -----
+  "acr repository list")
+    f="${fix}/acr/repositories-$(opt --name "$@").json"
+    [[ -f "${f}" ]] || err "(ResourceNotFound) registry not found" 3
+    cat "${f}" ;;
+  "acr manifest list-metadata")
+    f="${fix}/acr/list-metadata-$(opt --name "$@").json"
+    [[ -f "${f}" ]] || err "repository $(opt --name "$@") is not found." 1
+    cat "${f}" ;;
+  "acr manifest show")
+    ref=$(opt --name "$@"); d="${ref#*@}"
+    cat "${fix}/acr/manifest-${d#sha256:}.json" ;;
+  "acr manifest delete")
+    ref=$(opt --name "$@")
+    if [[ -n "${MOCK_FAIL_DIGEST:-}" && "${ref}" == *"@${MOCK_FAIL_DIGEST}" ]]; then
+      err "(DENIED) The operation is disallowed on this registry, repository or manifest." 1
+    fi
+    printf '%s\n' "${ref}" >>"${state}/deleted.txt" ;;
+
+  # ----- Backup -----
+  "backup job list")
+    f="${fix}/backup/jobs-$(opt --vault-name "$@").json"
+    [[ -f "${f}" ]] || err "(ResourceNotFound) The Resource 'Microsoft.RecoveryServices/vaults/$(opt --vault-name "$@")' was not found." 3
+    cat "${f}" ;;
+  "backup item list")
+    cat "${fix}/backup/items-$(opt --vault-name "$@").json" ;;
+
+  *)
+    err "mock az: unsupported call: $*" 2 ;;
+esac
