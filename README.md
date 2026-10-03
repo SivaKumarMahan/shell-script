@@ -10,12 +10,14 @@ README with sample output and an honest "Tested" section.
 | --- | --- | --- | --- |
 | [project1](project1/README.md) | System resource report (CPU, memory, disk, top processes, uptime) to a log file, cron-ready | Bash, `/proc`, `df`, `ps`, cron | Validated locally |
 | [project2](project2/README.md) | Colorized system information summary for a Linux host | Bash, `/proc`, `/etc/os-release` | Validated locally |
+| [project3-azure-ops-toolkit](project3-azure-ops-toolkit/README.md) | Controlled AKS upgrade (control plane, then node pools one by one with max surge and a health gate), Key Vault secret diff and expiry report, ACR cleanup, Recovery Services Vault backup report, mock-based tests | Bash, Azure CLI, kubectl, jq | Validated locally (offline tests with a mock `az` and `kubectl`; not run against Azure) |
 | [project4-backup-with-verification](project4-backup-with-verification/README.md) | Backup with checksum, restore test, safe rotation, locking and a cron example | Bash, tar, sha256sum, flock, cron | Validated locally |
 
 ## Prerequisites
 
 - Linux with Bash 4+ (the scripts read `/proc` and use GNU or BusyBox tools).
 - [ShellCheck](https://www.shellcheck.net/) for linting.
+- project3: Azure CLI, `jq` 1.6+, `kubectl` (for the AKS script). The tests need only `jq`.
 - project4: GNU `tar`, `sha256sum`, `flock` (util-linux).
 
 ## How to use
@@ -25,9 +27,10 @@ git clone https://github.com/SivaKumarMahan/shell-script.git
 cd shell-script
 
 # Lint everything (uses .shellcheckrc so 'source lib.sh' is followed)
-git ls-files '*.sh' | xargs shellcheck -x
+git ls-files '*.sh' 'project3-azure-ops-toolkit/tests/mocks/*' | xargs shellcheck -x
 
 # Run the test suites
+project3-azure-ops-toolkit/tests/run-tests.sh
 project4-backup-with-verification/tests/run-tests.sh
 
 # Try the scripts
@@ -45,6 +48,7 @@ Each project README has the full usage, verification and clean-up steps.
 ├── .shellcheckrc                     # follow sourced files relative to each script
 ├── project1/                         # system_monitor.sh
 ├── project2/                         # system_info.sh
+├── project3-azure-ops-toolkit/       # lib.sh, aks-nodepool-upgrade.sh, keyvault-secrets.sh, acr-cleanup.sh, backup-report.sh, tests/
 └── project4-backup-with-verification/  # backup.sh, restore.sh, cron.example, tests/
 ```
 
@@ -53,7 +57,7 @@ Each project README has the full usage, verification and clean-up steps.
 `.github/workflows/ci.yml` runs on push and pull request:
 
 1. `shellcheck` on every script.
-2. Smoke runs of project1/project2 and the project4 tests.
+2. Smoke runs of project1/project2, the project3 offline tests and the project4 tests.
 
 The workflow was checked with `actionlint`, but it has not run on GitHub yet (nothing was pushed).
 No secrets are needed.
@@ -63,8 +67,13 @@ No secrets are needed.
 - Defensive Bash: `set -euo pipefail`, quoting, `getopts` and long-option parsing, input
   validation, exit codes, traps for clean-up, `pipefail`/SIGPIPE pitfalls.
 - Portable Linux scripting: `/proc` instead of scraping `top`, fallbacks for BusyBox and minimal images.
+- Azure operations with the CLI: zero-downtime AKS upgrades (control plane first, node pools one
+  at a time with max surge, health gate on nodes and Pending Pods), Key Vault secret hygiene
+  (drift between environments, expiry alerts), ACR image retention (multi-arch manifests, locks),
+  Azure Backup monitoring (Recovery Services Vault jobs).
 - Safe automation: dry run by default, plans before changes, confirmations that refuse to run
   without a terminal, secrets never on the command line or in logs.
-- Testing shell code: a plain-bash test runner, time pinned for repeatable results.
+- Testing shell code: a plain-bash test runner, mock `az` and `kubectl` binaries with JSON
+  fixtures, time pinned for repeatable results.
 - Backup engineering: checksums, restore tests, atomic publish, rotation only after success, `flock`.
 - CI for scripts: ShellCheck and tests in GitHub Actions.

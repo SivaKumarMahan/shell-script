@@ -1,16 +1,27 @@
 {
   "version": "0.2",
   "language": "en",
-  "ignorePaths": [".git", "**/fixtures/**"],
+  "ignorePaths": [
+    ".git",
+    "**/fixtures/**"
+  ],
   "words": [
+    "acrplatform",
+    "azmk",
     "findutils",
     "getopts",
+    "kubeconfig",
+    "kubelet",
+    "kubelogin",
     "missingok",
     "myapp",
+    "nodepool",
+    "nodepools",
     "notifempty",
     "pipefail",
     "procps",
     "shellcheck",
-    "SIGPIPE"
+    "SIGPIPE",
+    "westeurope"
   ]
 }

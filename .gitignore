@@ -1,6 +1,9 @@
 # Logs written by the scripts when run from the repo
 *.log
 
+# Key Vault exports (project3) can contain secret values - never commit them
+*.secrets.json
+
 # Local environment files
 .env
 .env.*

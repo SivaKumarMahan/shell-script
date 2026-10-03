@@ -16,7 +16,7 @@ jobs:
       - name: shellcheck all scripts
         run: |
           shellcheck --version
-          git ls-files '*.sh' | xargs shellcheck -x
+          git ls-files '*.sh' 'project3-azure-ops-toolkit/tests/mocks/*' | xargs shellcheck -x
 
   tests:
     runs-on: ubuntu-24.04
@@ -26,5 +26,7 @@ jobs:
         run: |
           ./project1/system_monitor.sh -l "$RUNNER_TEMP/monitor.log" -s
           ./project2/system_info.sh --no-color
+      - name: project3 offline tests (mock az and kubectl)
+        run: ./project3-azure-ops-toolkit/tests/run-tests.sh
       - name: project4 backup tests
         run: ./project4-backup-with-verification/tests/run-tests.sh
