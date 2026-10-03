@@ -1,0 +1,106 @@
+[
+  {
+    "name": "VM;iaasvmcontainerv2;rg-app;vm-app-01",
+    "resourceGroup": "rg-backup",
+    "properties": {
+      "friendlyName": "vm-app-01",
+      "workloadType": "VM",
+      "protectionState": "Protected",
+      "protectionStatus": "Healthy",
+      "healthStatus": "Passed",
+      "lastBackupStatus": "Completed",
+      "lastBackupTime": "2026-09-29T01:00:00+00:00"
+    }
+  },
+  {
+    "name": "VM;iaasvmcontainerv2;rg-app;vm-app-02",
+    "resourceGroup": "rg-backup",
+    "properties": {
+      "friendlyName": "vm-app-02",
+      "workloadType": "VM",
+      "protectionState": "Protected",
+      "protectionStatus": "Healthy",
+      "healthStatus": "Passed",
+      "lastBackupStatus": "Completed",
+      "lastBackupTime": "2026-09-29T01:00:00+00:00"
+    }
+  },
+  {
+    "name": "VM;iaasvmcontainerv2;rg-app;vm-db-01",
+    "resourceGroup": "rg-backup",
+    "properties": {
+      "friendlyName": "vm-db-01",
+      "workloadType": "VM",
+      "protectionState": "Protected",
+      "protectionStatus": "Healthy",
+      "healthStatus": "Passed",
+      "lastBackupStatus": "Completed",
+      "lastBackupTime": "2026-09-29T01:00:00+00:00"
+    }
+  },
+  {
+    "name": "VM;iaasvmcontainerv2;rg-app;vm-web-01",
+    "resourceGroup": "rg-backup",
+    "properties": {
+      "friendlyName": "vm-web-01",
+      "workloadType": "VM",
+      "protectionState": "Protected",
+      "protectionStatus": "Healthy",
+      "healthStatus": "Passed",
+      "lastBackupStatus": "Completed",
+      "lastBackupTime": "2026-09-29T01:00:00+00:00"
+    }
+  },
+  {
+    "name": "VM;iaasvmcontainerv2;rg-app;vm-batch-01",
+    "resourceGroup": "rg-backup",
+    "properties": {
+      "friendlyName": "vm-batch-01",
+      "workloadType": "VM",
+      "protectionState": "Protected",
+      "protectionStatus": "Healthy",
+      "healthStatus": "Passed",
+      "lastBackupStatus": "Completed",
+      "lastBackupTime": "2026-09-29T01:00:00+00:00"
+    }
+  },
+  {
+    "name": "VM;iaasvmcontainerv2;rg-app;sales",
+    "resourceGroup": "rg-backup",
+    "properties": {
+      "friendlyName": "sales",
+      "workloadType": "SQLDataBase",
+      "protectionState": "Protected",
+      "protectionStatus": "Healthy",
+      "healthStatus": "Passed",
+      "lastBackupStatus": "Completed",
+      "lastBackupTime": "2026-09-29T01:00:00+00:00"
+    }
+  },
+  {
+    "name": "VM;iaasvmcontainerv2;rg-app;vm-legacy-01",
+    "resourceGroup": "rg-backup",
+    "properties": {
+      "friendlyName": "vm-legacy-01",
+      "workloadType": "VM",
+      "protectionState": "Protected",
+      "protectionStatus": "Healthy",
+      "healthStatus": "Passed",
+      "lastBackupStatus": "Completed",
+      "lastBackupTime": "2026-09-29T01:00:00+00:00"
+    }
+  },
+  {
+    "name": "VM;iaasvmcontainerv2;rg-app;vm-old-01",
+    "resourceGroup": "rg-backup",
+    "properties": {
+      "friendlyName": "vm-old-01",
+      "workloadType": "VM",
+      "protectionState": "ProtectionStopped",
+      "protectionStatus": "Healthy",
+      "healthStatus": "Passed",
+      "lastBackupStatus": "Completed",
+      "lastBackupTime": "2026-09-29T01:00:00+00:00"
+    }
+  }
+]

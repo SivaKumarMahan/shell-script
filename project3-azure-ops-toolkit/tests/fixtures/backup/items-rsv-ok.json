@@ -1,0 +1,15 @@
+[
+  {
+    "name": "VM;iaasvmcontainerv2;rg-app;vm-app-01",
+    "resourceGroup": "rg-backup",
+    "properties": {
+      "friendlyName": "vm-app-01",
+      "workloadType": "VM",
+      "protectionState": "Protected",
+      "protectionStatus": "Healthy",
+      "healthStatus": "Passed",
+      "lastBackupStatus": "Completed",
+      "lastBackupTime": "2026-09-29T01:00:00+00:00"
+    }
+  }
+]

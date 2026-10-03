@@ -1,0 +1,38 @@
+[
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/vm-app-01-2026-09-30T01:00:12.3456789+00:00",
+    "name": "vm-app-01-2026-09-30T01:00:12.3456789+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureIaasVM",
+      "entityFriendlyName": "vm-app-01",
+      "operation": "Backup",
+      "status": "Completed",
+      "startTime": "2026-09-30T01:00:12.3456789+00:00",
+      "endTime": "2026-09-30T01:31:02.1234567+00:00",
+      "duration": "0:30:00",
+      "jobType": "AzureIaaSVMJob",
+      "errorDetails": null
+    }
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/vm-app-01-2026-09-30T09:00:00+00:00",
+    "name": "vm-app-01-2026-09-30T09:00:00+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureIaasVM",
+      "entityFriendlyName": "vm-app-01",
+      "operation": "Restore",
+      "status": "Completed",
+      "startTime": "2026-09-30T09:00:00+00:00",
+      "endTime": "2026-09-30T09:40:00+00:00",
+      "duration": "0:30:00",
+      "jobType": "AzureIaaSVMJob",
+      "errorDetails": null
+    }
+  }
+]

@@ -1,0 +1,188 @@
+[
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/vm-app-01-2026-09-30T01:00:12.3456789+00:00",
+    "name": "vm-app-01-2026-09-30T01:00:12.3456789+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureIaasVM",
+      "entityFriendlyName": "vm-app-01",
+      "operation": "Backup",
+      "status": "Completed",
+      "startTime": "2026-09-30T01:00:12.3456789+00:00",
+      "endTime": "2026-09-30T01:31:02.1234567+00:00",
+      "duration": "0:30:00",
+      "jobType": "AzureIaaSVMJob",
+      "errorDetails": null
+    }
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/vm-app-01-2026-09-30T09:00:00+00:00",
+    "name": "vm-app-01-2026-09-30T09:00:00+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureIaasVM",
+      "entityFriendlyName": "vm-app-01",
+      "operation": "Restore",
+      "status": "Completed",
+      "startTime": "2026-09-30T09:00:00+00:00",
+      "endTime": "2026-09-30T09:40:00+00:00",
+      "duration": "0:30:00",
+      "jobType": "AzureIaaSVMJob",
+      "errorDetails": null
+    }
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/vm-app-02-2026-09-30T01:05:00+00:00",
+    "name": "vm-app-02-2026-09-30T01:05:00+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureIaasVM",
+      "entityFriendlyName": "vm-app-02",
+      "operation": "Backup",
+      "status": "Failed",
+      "startTime": "2026-09-30T01:05:00+00:00",
+      "endTime": "2026-09-30T01:20:00+00:00",
+      "duration": "0:30:00",
+      "jobType": "AzureIaaSVMJob",
+      "errorDetails": [
+        {
+          "errorCode": "UserErrorGuestAgentStatusUnavailable",
+          "errorString": "VM Agent unable to communicate with the Azure Backup Service.",
+          "errorTitle": "",
+          "recommendations": [
+            "Ensure the VM agent is installed and running."
+          ],
+          "retryable": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/vm-app-02-2026-09-28T01:05:00+00:00",
+    "name": "vm-app-02-2026-09-28T01:05:00+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureIaasVM",
+      "entityFriendlyName": "vm-app-02",
+      "operation": "Backup",
+      "status": "Failed",
+      "startTime": "2026-09-28T01:05:00+00:00",
+      "endTime": "2026-09-28T01:20:00+00:00",
+      "duration": "0:30:00",
+      "jobType": "AzureIaaSVMJob",
+      "errorDetails": [
+        {
+          "errorCode": "UserErrorGuestAgentStatusUnavailable",
+          "errorString": "old failure outside the window",
+          "recommendations": [],
+          "retryable": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/vm-db-01-2026-09-29T22:00:00+00:00",
+    "name": "vm-db-01-2026-09-29T22:00:00+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureIaasVM",
+      "entityFriendlyName": "vm-db-01",
+      "operation": "Backup",
+      "status": "Failed",
+      "startTime": "2026-09-29T22:00:00+00:00",
+      "endTime": "2026-09-29T22:10:00+00:00",
+      "duration": "0:30:00",
+      "jobType": "AzureIaaSVMJob",
+      "errorDetails": [
+        {
+          "errorCode": "ExtensionSnapshotFailedNoNetwork",
+          "errorString": "Snapshot operation failed due to no network connectivity on the virtual machine.",
+          "recommendations": [],
+          "retryable": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/vm-db-01-2026-09-30T10:00:00+00:00",
+    "name": "vm-db-01-2026-09-30T10:00:00+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureIaasVM",
+      "entityFriendlyName": "vm-db-01",
+      "operation": "Backup",
+      "status": "Completed",
+      "startTime": "2026-09-30T10:00:00+00:00",
+      "endTime": "2026-09-30T10:45:00+00:00",
+      "duration": "0:30:00",
+      "jobType": "AzureIaaSVMJob",
+      "errorDetails": null
+    }
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/sales-2026-09-30T02:00:00+00:00",
+    "name": "sales-2026-09-30T02:00:00+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureWorkload",
+      "entityFriendlyName": "sales",
+      "operation": "Backup",
+      "status": "CompletedWithWarnings",
+      "startTime": "2026-09-30T02:00:00+00:00",
+      "endTime": "2026-09-30T02:05:00+00:00",
+      "duration": "0:30:00",
+      "jobType": "AzureWorkloadJob",
+      "errorDetails": null
+    }
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/vm-web-01-2026-09-30T11:30:00+00:00",
+    "name": "vm-web-01-2026-09-30T11:30:00+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureIaasVM",
+      "entityFriendlyName": "vm-web-01",
+      "operation": "Backup",
+      "status": "InProgress",
+      "startTime": "2026-09-30T11:30:00+00:00",
+      "endTime": null,
+      "duration": "0:30:00",
+      "jobType": "AzureIaaSVMJob",
+      "errorDetails": null
+    }
+  },
+  {
+    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-backup/providers/Microsoft.RecoveryServices/vaults/rsv-prod/backupJobs/vm-batch-01-2026-09-30T01:00:00+00:00",
+    "name": "vm-batch-01-2026-09-30T01:00:00+00:00",
+    "resourceGroup": "rg-backup",
+    "type": "Microsoft.RecoveryServices/vaults/backupJobs",
+    "properties": {
+      "activityId": "00000000-aaaa-bbbb-cccc-000000000000",
+      "backupManagementType": "AzureIaasVM",
+      "entityFriendlyName": "vm-batch-01",
+      "operation": "Backup",
+      "status": "InProgress",
+      "startTime": "2026-09-30T01:00:00+00:00",
+      "endTime": null,
+      "duration": "0:30:00",
+      "jobType": "AzureIaaSVMJob",
+      "errorDetails": null
+    }
+  }
+]
