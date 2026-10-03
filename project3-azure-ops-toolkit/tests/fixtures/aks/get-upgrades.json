@@ -1,0 +1,14 @@
+{
+  "name": "default",
+  "controlPlaneProfile": {
+    "kubernetesVersion": "1.29.7",
+    "name": null,
+    "osType": "Linux",
+    "upgrades": [
+      { "isPreview": null, "kubernetesVersion": "1.30.3" },
+      { "isPreview": null, "kubernetesVersion": "1.30.4" },
+      { "isPreview": true, "kubernetesVersion": "1.30.5" }
+    ]
+  },
+  "agentPoolProfiles": null
+}

@@ -1,0 +1,13 @@
+{
+  "name": "aks-prod",
+  "resourceGroup": "rg-aks-prod",
+  "location": "westeurope",
+  "kubernetesVersion": "1.29.7",
+  "currentKubernetesVersion": "1.29.7",
+  "provisioningState": "Succeeded",
+  "powerState": { "code": "Running" },
+  "fqdn": "aks-prod-dns-4f1e2d3c.hcp.westeurope.azmk8s.io",
+  "privateFqdn": null,
+  "azurePortalFqdn": "aks-prod-dns-4f1e2d3c.portal.hcp.westeurope.azmk8s.io",
+  "sku": { "name": "Base", "tier": "Standard" }
+}

@@ -1,0 +1,45 @@
+[
+  {
+    "name": "apps",
+    "mode": "User",
+    "count": 2,
+    "vmSize": "Standard_D4s_v5",
+    "orchestratorVersion": "1.29.7",
+    "currentOrchestratorVersion": "1.29.7",
+    "provisioningState": "Succeeded",
+    "powerState": {
+      "code": "Running"
+    },
+    "upgradeSettings": {
+      "maxSurge": "10%"
+    }
+  },
+  {
+    "name": "batch",
+    "mode": "User",
+    "count": 0,
+    "vmSize": "Standard_D8s_v5",
+    "orchestratorVersion": "1.29.7",
+    "currentOrchestratorVersion": "1.29.7",
+    "provisioningState": "Succeeded",
+    "powerState": {
+      "code": "Stopped"
+    },
+    "upgradeSettings": {
+      "maxSurge": "10%"
+    }
+  },
+  {
+    "name": "system",
+    "mode": "System",
+    "count": 3,
+    "vmSize": "Standard_D2s_v5",
+    "orchestratorVersion": "1.29.7",
+    "currentOrchestratorVersion": "1.29.7",
+    "provisioningState": "Succeeded",
+    "powerState": {
+      "code": "Running"
+    },
+    "upgradeSettings": null
+  }
+]

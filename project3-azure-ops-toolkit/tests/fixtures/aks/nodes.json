@@ -1,0 +1,136 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "metadata": {
+        "name": "aks-system-38214765-vmss000000",
+        "labels": {
+          "agentpool": "system",
+          "kubernetes.azure.com/agentpool": "system",
+          "kubernetes.azure.com/mode": "system"
+        }
+      },
+      "spec": {},
+      "status": {
+        "conditions": [
+          {
+            "type": "MemoryPressure",
+            "status": "False"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          }
+        ],
+        "nodeInfo": {
+          "kubeletVersion": "v1.29.7"
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "aks-system-38214765-vmss000001",
+        "labels": {
+          "agentpool": "system",
+          "kubernetes.azure.com/agentpool": "system",
+          "kubernetes.azure.com/mode": "system"
+        }
+      },
+      "spec": {},
+      "status": {
+        "conditions": [
+          {
+            "type": "MemoryPressure",
+            "status": "False"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          }
+        ],
+        "nodeInfo": {
+          "kubeletVersion": "v1.29.7"
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "aks-system-38214765-vmss000002",
+        "labels": {
+          "agentpool": "system",
+          "kubernetes.azure.com/agentpool": "system",
+          "kubernetes.azure.com/mode": "system"
+        }
+      },
+      "spec": {},
+      "status": {
+        "conditions": [
+          {
+            "type": "MemoryPressure",
+            "status": "False"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          }
+        ],
+        "nodeInfo": {
+          "kubeletVersion": "v1.29.7"
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "aks-apps-51907326-vmss000000",
+        "labels": {
+          "agentpool": "apps",
+          "kubernetes.azure.com/agentpool": "apps",
+          "kubernetes.azure.com/mode": "user"
+        }
+      },
+      "spec": {},
+      "status": {
+        "conditions": [
+          {
+            "type": "MemoryPressure",
+            "status": "False"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          }
+        ],
+        "nodeInfo": {
+          "kubeletVersion": "v1.29.7"
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "aks-apps-51907326-vmss000001",
+        "labels": {
+          "agentpool": "apps",
+          "kubernetes.azure.com/agentpool": "apps",
+          "kubernetes.azure.com/mode": "user"
+        }
+      },
+      "spec": {},
+      "status": {
+        "conditions": [
+          {
+            "type": "MemoryPressure",
+            "status": "False"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          }
+        ],
+        "nodeInfo": {
+          "kubeletVersion": "v1.29.7"
+        }
+      }
+    }
+  ]
+}
