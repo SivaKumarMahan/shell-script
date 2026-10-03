@@ -1,0 +1,41 @@
+[
+  {
+    "digest": "sha256:786f685afbb7c1345d4fa2ed01af8b824d0d003cd5640e69b41e56af187da484",
+    "tags": [
+      "2.0.1"
+    ],
+    "createdTime": "2026-09-21T09:00:00Z",
+    "lastUpdateTime": "2026-09-21T09:00:00Z",
+    "imageSize": 30000000,
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "changeableAttributes": {
+      "deleteEnabled": true
+    }
+  },
+  {
+    "digest": "sha256:69ab79a870d9825441af52f8ef15562b95ec5921b294daac944494ffae5f0523",
+    "tags": [
+      "2.0.2"
+    ],
+    "createdTime": "2026-09-22T09:00:00Z",
+    "lastUpdateTime": "2026-09-22T09:00:00Z",
+    "imageSize": 30000000,
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "changeableAttributes": {
+      "deleteEnabled": true
+    }
+  },
+  {
+    "digest": "sha256:6e882b07f6bd27009724d34e0a41ff34dcf186bfe4e27cca69b90d931da21e20",
+    "tags": [
+      "2.0.3"
+    ],
+    "createdTime": "2026-09-23T09:00:00Z",
+    "lastUpdateTime": "2026-09-23T09:00:00Z",
+    "imageSize": 30000000,
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "changeableAttributes": {
+      "deleteEnabled": true
+    }
+  }
+]
