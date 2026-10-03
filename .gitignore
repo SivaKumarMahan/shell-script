@@ -1,9 +1,6 @@
 # Logs written by the scripts when run from the repo
 *.log
 
-# SSM exports contain decrypted secrets - never commit them
-*.ssm.json
-
 # Local environment files
 .env
 .env.*

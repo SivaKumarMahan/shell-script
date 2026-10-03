@@ -5,7 +5,6 @@
   "words": [
     "findutils",
     "getopts",
-    "localstack",
     "missingok",
     "myapp",
     "notifempty",

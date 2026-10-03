@@ -1,7 +1,0 @@
-{
-  "taskArns": [
-    "arn:aws:ecs:eu-west-1:123456789012:task/prod/a1b2c3d4e5f60718293a4b5c6d7e8f90",
-    "arn:aws:ecs:eu-west-1:123456789012:task/prod/b2c3d4e5f60718293a4b5c6d7e8f90a1",
-    "arn:aws:ecs:eu-west-1:123456789012:task/prod/c3d4e5f60718293a4b5c6d7e8f90a1b2"
-  ]
-}
